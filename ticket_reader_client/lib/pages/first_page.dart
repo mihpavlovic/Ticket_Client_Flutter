@@ -29,7 +29,7 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange[300],
-        title: const Center(child: Text("Ticket reader app", style: TextStyle(fontWeight: FontWeight.bold),)),
+        title: const Center(child: Text("TICKET READER", style: TextStyle(fontWeight: FontWeight.bold),)),
         elevation: 0,
       ),
 

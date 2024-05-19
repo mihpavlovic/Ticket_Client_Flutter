@@ -1,4 +1,5 @@
 import "dart:convert";
+import "dart:io";
 
 import "package:http/http.dart" as http;
 import "package:ticket_reader_client/models/ticket_model.dart";
@@ -11,7 +12,7 @@ class Api{
   static getAllTickets() async{
     List<Ticket> tickets_from_db = [];
     
-    var url = Uri.parse("${baseUrl}/getAll");
+    var url = Uri.parse("$baseUrl/getAll");
     
     try{
       final res = await http.get(url);
@@ -25,7 +26,7 @@ class Api{
           )
         }
         );
-        tickets_from_db.forEach((element) { print(element.toString()); });
+        //tickets_from_db.forEach((element) { print(element.toString()); });
         return tickets_from_db;
       } else {
         return [];
@@ -33,5 +34,31 @@ class Api{
     } catch(e){
       print(e.toString());
     }
+  }
+
+  static checkOneTicket(Map pdata) async{
+    
+    var url = Uri.parse("$baseUrl/checkOneTicket");
+    try{
+
+      final res = await http.post(
+        url, 
+        body: json.encode(pdata), 
+        headers: {HttpHeaders.contentTypeHeader: 'application/json'}
+      );
+      if(res.statusCode == 200){
+        Map data = jsonDecode(res.body.toString());
+        //String resultOfRequest = data.msg;
+        //if(resultOfRequest == "VALID TICKET"){
+        //}
+        print("$pdata ${data['msg']}");
+        return data['msg'].toString();
+      } else {
+        return "ERROR";
+      }
+    } catch(e){
+      print(e.toString());
+    }
+
   }
 }
