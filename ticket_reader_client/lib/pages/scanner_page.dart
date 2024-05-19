@@ -14,7 +14,7 @@ class _ScannerPageState extends State<ScannerPage> {
   bool scanningResultBool = false;
   TextEditingController ticketIdController = new TextEditingController();
 
-  void checkTicketWithDB() async {
+  checkTicketWithDB() async {
     //TimeOfDay timeOfDay = new TimeOfDay.now();
     DateTime dateTime = new DateTime.now();
     String tId = ticketIdController.text;
@@ -52,9 +52,9 @@ class _ScannerPageState extends State<ScannerPage> {
             ),
             
             ElevatedButton(
-              onPressed: (){
-                checkTicketWithDB();
-                showDialog(
+              onPressed: () async{
+                await checkTicketWithDB();
+                await showDialog(
                   context: context, 
                   builder: (context) => AlertDialog(
                     actions: [
